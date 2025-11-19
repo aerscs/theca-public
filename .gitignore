@@ -1,0 +1,9 @@
+*/.env
+*/.DS_Store
+.vscode/*
+.idea/*
+.directory/*
+.git/*
+main
+*/.db
+*/theca_local.db

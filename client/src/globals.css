@@ -1,0 +1,106 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(/fonts/IBMPlexMono-Text.woff2) format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+  line-height: 125%;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url(/fonts/IBMPlexMono-Medium.woff2) format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+  line-height: 125%;
+}
+
+@theme {
+  --color-smoke-900: #000005;
+  --color-smoke-700: #0d0d12;
+  --color-smoke-500: #242433;
+  --color-smoke-300: #414158;
+  --color-smoke-100: #fff;
+  --color-accent: #3b89ff;
+  --color-danger: #e50026;
+  --animate-fade: fade 1s linear infinite;
+  --animate-apple: apple 800ms steps(8, end) infinite;
+
+  @keyframes fade {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes apple {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+:root {
+  font-family: "IBM Plex Mono", sans-serif;
+
+  --smoke-900: #000005;
+  --smoke-700: #0d0d12;
+  --smoke-500: #242433;
+  --smoke-300: #414158;
+  --smoke-100: #fff;
+  --accent: #3b89ff;
+  --danger: #e50026;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--smoke-900);
+  background-image: url("/gridtile.png");
+  background-repeat: repeat;
+  color: var(--smoke-100);
+  line-height: 125%;
+}
+
+button {
+  cursor: pointer;
+  line-height: 125%;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.underline-hover {
+  @apply relative w-fit transition-all after:absolute after:-bottom-0.5 after:left-0 after:h-[1px] after:w-full after:origin-[right_center_0px] after:scale-x-0 after:rounded-full after:bg-current after:transition-transform after:content-[''] hover:after:origin-[left_center_0px] hover:after:scale-x-100;
+}
+
+.lucide {
+  flex-shrink: 0;
+}
+
+.overlay {
+  background:
+    linear-gradient(90deg, var(--smoke-700) 50%, var(--smoke-500) 50%),
+    linear-gradient(90deg, var(--smoke-700) 0%, var(--smoke-500) 0%);
+  background-size: 200% 100%;
+}

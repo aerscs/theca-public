@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="en">
+    <head>
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="x-apple-disable-message-reformatting" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+        <!--$-->
+    </head>
+    <body
+        style="
+            background-color: #ffffff;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 56px 32px;
+            width: 100%;
+            box-sizing: border-box;
+        "
+    >
+        <table
+            align="center"
+            width="100%"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            role="presentation"
+            style="
+                max-width: 450px;
+                background-color: #ffffff;
+                margin: 0 auto;
+                padding: 72px 32px;
+                border: 1px solid #00000079;
+                border-radius: 16px;
+            "
+        >
+            <tbody>
+                <tr style="width: 100%">
+                    <td style="text-align: left;">
+                        <!-- Logo -->
+                        <div style="margin-bottom: 0;">
+                            <!--[if mso]>
+                            <table border="0" cellpadding="0" cellspacing="0" style="width: 60px; height: 60px;">
+                                <tr>
+                                    <td style="text-align: center; vertical-align: middle; background-color: #3B89FF; border-radius: 12px; font-family: Arial, sans-serif; font-size: 24px; font-weight: bold; color: #ffffff;">
+                                        T
+                                    </td>
+                                </tr>
+                            </table>
+                            <![endif]-->
+                            <!--[if !mso]><!-->
+                            <svg 
+                                width="60" 
+                                height="60" 
+                                viewBox="0 0 24 24" 
+                                xmlns="http://www.w3.org/2000/svg"
+                                style="display: block; max-width: 60px; height: auto;"
+                            >
+                                <rect width="24" height="24" rx="4.8" fill="none"/>
+                                <path 
+                                    fill-rule="evenodd" 
+                                    clip-rule="evenodd" 
+                                    d="M13.1159 16.5516C13.2625 16.6527 13.4431 16.7131 13.6358 16.7109H14.4669C14.6534 16.7109 14.8321 16.6535 14.9814 16.5506L20.311 12.8391C20.7225 12.553 20.8218 11.9889 20.5392 11.5791L19.8069 10.5192C19.5221 10.1067 18.9565 10.0044 18.5448 10.2906L14.0463 13.4229L5.45115 7.46119C5.03885 7.17529 4.47377 7.28049 4.18985 7.69229L3.45958 8.75374C3.17743 9.16397 3.27939 9.7272 3.6898 10.0125L12.6169 16.2042L12.6156 16.2068L13.1159 16.5516Z" 
+                                    fill="#3B89FF"
+                                />
+                            </svg>
+                            <!--<![endif]-->
+                        </div>
+
+                        <!-- Header "password recovery" -->
+                        <p
+                            style="
+                                font-size: 18px;
+                                line-height: 1.2;
+                                margin: 0 0 2px 0;
+                                color: #000000;
+                                font-weight: 600;
+                                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                text-align: left;
+                                letter-spacing: -0.02em;
+                            "
+                        >
+                            password recovery
+                        </p>
+
+                        <!-- Main header -->
+                        <h1
+                            style="
+                                color: #3B89FF;
+                                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                font-size: 28px;
+                                font-weight: 600;
+                                line-height: 1.1;
+                                margin: 0 0 32px 0;
+                                text-align: left;
+                                letter-spacing: -0.02em;
+                            "
+                        >
+                            Hello, {{.Username}}!
+                        </h1>
+
+                        <!-- Main text -->
+                        <p
+                            style="
+                                font-size: 12px;
+                                line-height: 1.4;
+                                margin: 0 0 21px 0;
+                                color: #000000;
+                                font-weight: 500;
+                                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                text-align: left;
+                                letter-spacing: -0.01em;
+                            "
+                        >
+                            We have received a password recovery request for your account. Click the button to change your password.
+                        </p>
+
+                        <!-- Button -->
+                        <div style="text-align: left; margin: 0 0 97px 0;">
+                            <a
+                                href="https://theca.oxytocingroup.com/v1/reset-password?token={{.Code}}"
+                                style="
+                                    background-color: #3B89FF;
+                                    border-radius: 12px;
+                                    color: #ffffff;
+                                    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    text-decoration: none;
+                                    text-align: center;
+                                    display: inline-block;
+                                    padding: 9px 21px;
+                                    letter-spacing: -0.01em;
+                                "
+                                target="_blank"
+                            >
+                                reset password
+                            </a>
+                        </div>
+
+                        <!-- Additional text -->
+                        <p
+                            style="
+                                font-size: 12px;
+                                line-height: 1.4;
+                                margin: 0 0 16px 0;
+                                color: #000000;
+                                font-weight: 500;
+                                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                text-align: left;
+                                letter-spacing: -0.01em;
+                            "
+                        >
+                            This link is valid for one hour.<br>If you did not request a password reset — please ignore this email.
+                        </p>
+
+                        <!-- Signature -->
+                        <p
+                            style="
+                                font-size: 16px;
+                                line-height: 1.2;
+                                margin: 0;
+                                color: #000000;
+                                font-weight: 700;
+                                letter-spacing: -0.01em;
+                                font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+                                text-align: left;
+                                text-transform: uppercase;
+                            "
+                        >
+                            THECA | OXYTOCIN GROUP
+                        </p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!--/$-->
+    </body>
+</html>

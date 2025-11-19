@@ -1,0 +1,87 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: theca-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${PG_USER:-postgres}
+      POSTGRES_PASSWORD: ${PG_PASSWORD:-postgres}
+      POSTGRES_DB: ${PG_DB:-postgres}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    # ports:
+    #   - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - theca-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: theca-redis
+    restart: unless-stopped
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD:-4&<E?h80#1si}
+    # ports:
+    #   - "6379:6379"
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-4&<E?h80#1si}
+    volumes:
+      - redis-data:/data
+    healthcheck:
+      test:
+        ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD:-4&<E?h80#1si}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - theca-network
+
+  theca-server:
+    image: theca-server:latest # prod
+    # build: . # dev
+    container_name: theca-server
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      PG_NAME: postgres
+      PG_PORT: 5432
+      PUBLIC_ADDR: :8080
+      SWAGGER_ADDR: :8081
+      REDIS_ADDR: redis:6379
+      LOG_LEVEL: ${LOG_LEVEL:-INFO}
+      IS_LOCAL_RUN: ${IS_LOCAL_RUN:-false}
+      PG_USER: ${PG_USER:-postgres}
+      PG_DB: ${PG_DB:-postgres}
+      PG_PASSWORD: ${PG_PASSWORD:-postgres}
+      PG_SSL_MODE: ${PG_SSL_MODE:-disable}
+      JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET}
+      JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+      SMTP_API_KEY: ${SMTP_API_KEY}
+      REDIS_PASSWORD: ${REDIS_PASSWORD:-4&<E?h80#1si}
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    networks:
+      - theca-network
+
+networks:
+  theca-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    name: theca-postgres-data
+  redis-data:
+    name: theca-redis-data

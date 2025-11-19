@@ -1,0 +1,691 @@
+definitions:
+  errors.APIError:
+    properties:
+      code:
+        $ref: '#/definitions/errors.ErrorCode'
+      message:
+        type: string
+    type: object
+  errors.ErrorCode:
+    enum:
+    - UNKNOWN_ERROR
+    - INVALID_REQUEST
+    - INTERNAL_ERROR
+    - NOT_FOUND
+    - UNAUTHORIZED
+    - FORBIDDEN
+    - TOO_MANY_REQUESTS
+    - USER_NOT_FOUND
+    - USER_ALREADY_EXISTS
+    - USER_USERNAME_ALREADY_EXISTS
+    - USER_EMAIL_ALREADY_EXISTS
+    - INVALID_PASSWORD
+    - INVALID_EMAIL
+    - INVALID_USERNAME
+    - INVALID_VERIFICATION_CODE
+    - INVALID_REFRESH_TOKEN
+    - DATA_NOT_FOUND
+    - DATA_INVALID
+    - DATA_CONFLICT
+    type: string
+    x-enum-varnames:
+    - CodeUnknownError
+    - CodeInvalidRequest
+    - CodeInternalError
+    - CodeNotFound
+    - CodeUnauthorized
+    - CodeForbidden
+    - CodeTooManyRequests
+    - CodeUserNotFound
+    - CodeUserAlreadyExists
+    - CodeUserUsernameAlreadyExists
+    - CodeUserEmailAlreadyExists
+    - CodeInvalidPassword
+    - CodeInvalidEmail
+    - CodeInvalidUsername
+    - CodeInvalidVerificationCode
+    - CodeInvalidRefreshToken
+    - CodeDataNotFound
+    - CodeDataInvalid
+    - CodeDataConflict
+  errors.Response:
+    properties:
+      data: {}
+      error:
+        $ref: '#/definitions/errors.APIError'
+      success:
+        type: boolean
+    type: object
+  model.AddBookmarkRequest:
+    properties:
+      show_text:
+        type: boolean
+      title:
+        type: string
+      url:
+        type: string
+    required:
+    - title
+    - url
+    type: object
+  model.BookmarkResponse:
+    properties:
+      created_at:
+        type: string
+      favicon:
+        type: string
+      id:
+        type: integer
+      show_text:
+        type: boolean
+      title:
+        type: string
+      updated_at:
+        type: string
+      url:
+        type: string
+    type: object
+  model.EmailVerifyRequest:
+    properties:
+      code:
+        minLength: 6
+        type: string
+    required:
+    - code
+    type: object
+  model.ExportBookmarksResponse:
+    properties:
+      file:
+        type: string
+    type: object
+  model.ImportBookmarksRequest:
+    properties:
+      file:
+        type: string
+    required:
+    - file
+    type: object
+  model.LoginRequest:
+    properties:
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 3
+        type: string
+    required:
+    - password
+    - username
+    type: object
+  model.LoginResponse:
+    properties:
+      access_token:
+        type: string
+      user:
+        $ref: '#/definitions/model.UserResponse'
+    type: object
+  model.PasswordResetRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  model.PatchBookmarkRequest:
+    properties:
+      show_text:
+        type: boolean
+      title:
+        type: string
+      url:
+        type: string
+    type: object
+  model.RegisterRequest:
+    properties:
+      email:
+        type: string
+      password:
+        minLength: 6
+        type: string
+      username:
+        minLength: 3
+        type: string
+    required:
+    - email
+    - password
+    - username
+    type: object
+  model.ResetPasswordRequest:
+    properties:
+      password:
+        minLength: 6
+        type: string
+    required:
+    - password
+    type: object
+  model.SendEmailVerificationCodeRequest:
+    properties:
+      email:
+        type: string
+    required:
+    - email
+    type: object
+  model.UserResponse:
+    properties:
+      email:
+        type: string
+      id:
+        type: integer
+      is_premium:
+        type: boolean
+      username:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Bookmarks manager API
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  title: Theca API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: Check if the service is healthy
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Health Check
+      tags:
+      - health
+  /v1/api/bookmarks:
+    get:
+      description: Get all bookmarks for the authenticated user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.BookmarkResponse'
+            type: array
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Get All Bookmarks
+      tags:
+      - bookmarks
+    post:
+      consumes:
+      - application/json
+      description: Add a new bookmark
+      parameters:
+      - description: Bookmark data
+        in: body
+        name: bookmarkRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.AddBookmarkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BookmarkResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Add Bookmark
+      tags:
+      - bookmarks
+  /v1/api/bookmarks/{id}:
+    delete:
+      description: Delete a bookmark
+      parameters:
+      - description: Bookmark ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/errors.Response'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Delete Bookmark
+      tags:
+      - bookmarks
+    get:
+      description: Get a bookmark by its ID
+      parameters:
+      - description: Bookmark ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BookmarkResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Get Bookmark By ID
+      tags:
+      - bookmarks
+    patch:
+      consumes:
+      - application/json
+      description: Update an existing bookmark
+      parameters:
+      - description: Bookmark ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Partial bookmark data for update
+        in: body
+        name: bookmarkRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.PatchBookmarkRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.BookmarkResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Update Bookmark
+      tags:
+      - bookmarks
+  /v1/api/bookmarks/export:
+    get:
+      description: Export all user's bookmarks as HTML file in base64 encoding
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.ExportBookmarksResponse'
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Export Bookmarks
+      tags:
+      - bookmarks
+  /v1/api/bookmarks/import:
+    put:
+      consumes:
+      - application/json
+      description: Import bookmarks from HTML file encoded in base64
+      parameters:
+      - description: Import data
+        in: body
+        name: importRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.ImportBookmarksRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.BookmarkResponse'
+            type: array
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Import Bookmarks
+      tags:
+      - bookmarks
+  /v1/api/logout:
+    delete:
+      consumes:
+      - application/json
+      description: Logout a user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Logout
+      tags:
+      - user
+  /v1/api/user/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Get user information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Get user by ID
+      tags:
+      - user
+  /v1/api/user/me:
+    get:
+      consumes:
+      - application/json
+      description: Get user information
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.UserResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Get yourself
+      tags:
+      - user
+  /v1/login:
+    post:
+      consumes:
+      - application/json
+      description: Login a user
+      parameters:
+      - description: Login request
+        in: body
+        name: loginRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Login
+      tags:
+      - user
+  /v1/refresh-tokens:
+    get:
+      consumes:
+      - application/json
+      description: Refresh tokens
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      summary: Refresh Tokens
+      tags:
+      - user
+  /v1/register:
+    post:
+      consumes:
+      - application/json
+      description: Register a new user
+      parameters:
+      - description: Register request
+        in: body
+        name: registerRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.RegisterRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Register
+      tags:
+      - user
+  /v1/request-password-reset:
+    post:
+      consumes:
+      - application/json
+      description: Send email with password reset link
+      parameters:
+      - description: Password reset request
+        in: body
+        name: passwordResetRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.PasswordResetRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Request Password Reset
+      tags:
+      - user
+  /v1/reset-password:
+    patch:
+      consumes:
+      - application/json
+      description: Reset password using token from email
+      parameters:
+      - description: Reset token
+        in: query
+        name: resetToken
+        required: true
+        type: string
+      - description: Reset password request
+        in: body
+        name: resetPasswordRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.ResetPasswordRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Reset Password
+      tags:
+      - user
+  /v1/send-email-verification-code:
+    post:
+      consumes:
+      - application/json
+      description: Send email verification code
+      parameters:
+      - description: SendEmailVerificationCodeRequest request
+        in: body
+        name: sendEmailCodeRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.SendEmailVerificationCodeRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Send Email Verification Code
+      tags:
+      - user
+  /v1/verify-email:
+    patch:
+      consumes:
+      - application/json
+      description: Verify email
+      parameters:
+      - description: Email verify request
+        in: body
+        name: emailVerifyRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.EmailVerifyRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/model.LoginResponse'
+        "400":
+          description: Bad Request
+        "500":
+          description: Internal Server Error
+      summary: Verify Email
+      tags:
+      - user
+  /v2/api/bookmarks/export:
+    get:
+      description: Export all user's bookmarks as JSON
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.BookmarkResponse'
+            type: array
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Export Bookmarks V2
+      tags:
+      - bookmarks
+  /v2/api/bookmarks/import:
+    post:
+      consumes:
+      - application/json
+      description: Import bookmarks from HTML file encoded in base64
+      parameters:
+      - description: Import data
+        in: body
+        name: importRequest
+        required: true
+        schema:
+          $ref: '#/definitions/model.ImportBookmarksRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/model.BookmarkResponse'
+            type: array
+        "400":
+          description: Bad Request
+        "401":
+          description: Unauthorized
+        "500":
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Import Bookmarks V2
+      tags:
+      - bookmarks
+swagger: "2.0"
