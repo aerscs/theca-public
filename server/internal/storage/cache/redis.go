@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
+	"github.com/aerscs/theca-public/internal/config"
 	"github.com/redis/go-redis/v9"
 )
 

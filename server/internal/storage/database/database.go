@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
+	"github.com/aerscs/theca-public/internal/config"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

@@ -8,13 +8,13 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	"github.com/OxytocinGroup/theca-v3/internal/repository"
-	"github.com/OxytocinGroup/theca-v3/internal/utils/errors"
-	jwtauth "github.com/OxytocinGroup/theca-v3/internal/utils/jwt"
-	"github.com/OxytocinGroup/theca-v3/internal/utils/mail"
-	"github.com/OxytocinGroup/theca-v3/internal/utils/parsers"
+	"github.com/aerscs/theca-public/internal/config"
+	"github.com/aerscs/theca-public/internal/model"
+	"github.com/aerscs/theca-public/internal/repository"
+	"github.com/aerscs/theca-public/internal/utils/errors"
+	jwtauth "github.com/aerscs/theca-public/internal/utils/jwt"
+	"github.com/aerscs/theca-public/internal/utils/mail"
+	"github.com/aerscs/theca-public/internal/utils/parsers"
 	"golang.org/x/crypto/bcrypt"
 )
 
@@ -576,7 +576,7 @@ func (s *service) ImportBookmarks(userID uint, base64Data string) ([]model.Bookm
 		log.Error("failed to parse bookmarks HTML", "error", err, "user_id", userID)
 		return nil, errors.New(errors.CodeInvalidRequest, "Failed to parse bookmarks file")
 	}
-	
+
 	user, err := s.repo.GetUserByID(userID)
 	if err != nil {
 		log.Error("failed to get user", "error", err, "user_id", userID)

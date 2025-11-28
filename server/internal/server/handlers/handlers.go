@@ -3,9 +3,9 @@ package handlers
 import (
 	"log/slog"
 
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	"github.com/OxytocinGroup/theca-v3/internal/service"
-	errors "github.com/OxytocinGroup/theca-v3/internal/utils/errors"
+	"github.com/aerscs/theca-public/internal/model"
+	"github.com/aerscs/theca-public/internal/service"
+	errors "github.com/aerscs/theca-public/internal/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 

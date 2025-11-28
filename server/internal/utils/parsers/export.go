@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/model"
+	"github.com/aerscs/theca-public/internal/model"
 )
 
 // BookmarkHTMLExporter структура для экспорта закладок в HTML-файл

@@ -1,4 +1,4 @@
-module github.com/OxytocinGroup/theca-v3
+module github.com/aerscs/theca-public
 
 go 1.24.2
 

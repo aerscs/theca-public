@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/repository"
+	"github.com/aerscs/theca-public/internal/repository"
 	"golang.org/x/net/html"
 )
 

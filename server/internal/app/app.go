@@ -6,20 +6,20 @@ import (
 	"os"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	"github.com/OxytocinGroup/theca-v3/internal/repository"
-	"github.com/OxytocinGroup/theca-v3/internal/server"
-	"github.com/OxytocinGroup/theca-v3/internal/server/handlers"
-	"github.com/OxytocinGroup/theca-v3/internal/server/middleware"
-	"github.com/OxytocinGroup/theca-v3/internal/service"
-	"github.com/OxytocinGroup/theca-v3/internal/storage/database"
+	"github.com/aerscs/theca-public/internal/config"
+	"github.com/aerscs/theca-public/internal/model"
+	"github.com/aerscs/theca-public/internal/repository"
+	"github.com/aerscs/theca-public/internal/server"
+	"github.com/aerscs/theca-public/internal/server/handlers"
+	"github.com/aerscs/theca-public/internal/server/middleware"
+	"github.com/aerscs/theca-public/internal/service"
+	"github.com/aerscs/theca-public/internal/storage/database"
 	"github.com/gin-gonic/gin"
 	"github.com/redis/go-redis/v9"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
 
-	_ "github.com/OxytocinGroup/theca-v3/docs"
+	_ "github.com/aerscs/theca-public/docs"
 )
 
 type Application struct {

@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/utils/errors"
+	"github.com/aerscs/theca-public/internal/utils/errors"
 	"github.com/gin-gonic/gin"
 	"github.com/golang-jwt/jwt/v5"
 )

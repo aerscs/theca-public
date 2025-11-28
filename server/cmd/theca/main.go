@@ -8,9 +8,9 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/app"
-	"github.com/OxytocinGroup/theca-v3/internal/config"
-	"github.com/OxytocinGroup/theca-v3/internal/logger"
+	"github.com/aerscs/theca-public/internal/app"
+	"github.com/aerscs/theca-public/internal/config"
+	"github.com/aerscs/theca-public/internal/logger"
 )
 
 // @title           Theca API

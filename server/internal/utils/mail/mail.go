@@ -7,7 +7,7 @@ import (
 	"text/template"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
+	"github.com/aerscs/theca-public/internal/config"
 	"github.com/resend/resend-go/v2"
 )
 

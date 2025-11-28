@@ -7,8 +7,8 @@ import (
 	"net/url"
 	"sync"
 
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	"github.com/OxytocinGroup/theca-v3/internal/repository"
+	"github.com/aerscs/theca-public/internal/model"
+	"github.com/aerscs/theca-public/internal/repository"
 	"golang.org/x/net/html"
 )
 

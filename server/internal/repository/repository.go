@@ -4,8 +4,8 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	customerrors "github.com/OxytocinGroup/theca-v3/internal/utils/errors"
+	"github.com/aerscs/theca-public/internal/model"
+	customerrors "github.com/aerscs/theca-public/internal/utils/errors"
 	"gorm.io/gorm"
 )
 

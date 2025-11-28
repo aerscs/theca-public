@@ -3,8 +3,8 @@ package handlers
 import (
 	"strconv"
 
-	"github.com/OxytocinGroup/theca-v3/internal/model"
-	"github.com/OxytocinGroup/theca-v3/internal/utils/errors"
+	"github.com/aerscs/theca-public/internal/model"
+	"github.com/aerscs/theca-public/internal/utils/errors"
 	"github.com/gin-gonic/gin"
 )
 

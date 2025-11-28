@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/OxytocinGroup/theca-v3/internal/config"
-	"github.com/OxytocinGroup/theca-v3/internal/server/middleware"
+	"github.com/aerscs/theca-public/internal/config"
+	"github.com/aerscs/theca-public/internal/server/middleware"
 	"github.com/gin-gonic/gin"
 )
 

@@ -37,7 +37,7 @@ Theca - это современный менеджер закладок, раз�
 
 1. Клонируйте репозиторий:
    ```bash
-   git clone https://github.com/OxytocinGroup/theca-v3.git
+   git clone https://github.com/aerscs/theca-public.git
    cd theca-v3/server
    ```
 
@@ -216,4 +216,4 @@ Rate limiting автоматически включается при налич�
 
 ## Лицензия
 
-Apache License 2.0 
+Apache License 2.0
